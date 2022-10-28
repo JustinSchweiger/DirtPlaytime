@@ -1,0 +1,96 @@
+# Configuration file for Dirt-Playtime
+
+[general]
+    # Wether debug-messages should be printed to the console (has some usefull information)
+    # Default: true
+    debug = true
+
+    # Wether debug-messages should be colored in the console
+    # Default: true
+    coloredDebug = true
+
+    # Wether rank ups should be announced in chat
+    # Default: true
+    announceRankUpsInChat = true
+
+    # Wether rank ups should be announced in a title
+    # Default: true
+    announceRankUpsInTitle = true
+
+    # How many players should be shown in the leaderboard
+    # Default: 10
+    leaderboardSize = 10
+
+    # Wether staff should be shown in the leaderboard
+    # Default: true
+    showStaffInLeaderboard = true
+
+
+[sounds]
+    # Wether a sound should be played when a user ranks up.
+    # Default: true
+    playRankUpSound = true
+
+    # The sound that should be played.
+    # Default: minecraft:ui.toast.challenge_complete
+    rankUpSound = "minecraft:ui.toast.challenge_complete"
+
+
+[[ranks]]
+    name = "&7[&bBeginner&7]"
+    time = 30
+    timeUnit = "minutes"
+    money = 500
+    commands = [
+        "lp user {PLAYER} parent add beginner <server>"
+    ]
+
+[[ranks]]
+    name = "&7[&eAmateur&7]"
+    time = 12
+    timeUnit = "hours"
+    money = 1000
+    commands = [
+        "lp user {PLAYER} parent add amateur <server>",
+        "lp user {PLAYER} parent remove beginner <server>"
+    ]
+
+[[ranks]]
+    name = "&7[&6Citizen&7]"
+    time = 1
+    timeUnit = "days"
+    money = 2000
+    commands = [
+        "lp user {PLAYER} parent add citizen <server>",
+        "lp user {PLAYER} parent remove amateur <server>"
+    ]
+
+[[ranks]]
+    name = "&7[&dExperienced&7]"
+    time = 3
+    timeUnit = "days"
+    money = 4000
+    commands = [
+        "lp user {PLAYER} parent add experienced <server>",
+        "lp user {PLAYER} parent remove citizen <server>"
+    ]
+
+[[ranks]]
+    name = "&7[&2Master&7]"
+    time = 5
+    timeUnit = "days"
+    money = 8000
+    commands = [
+        "lp user {PLAYER} parent add master <server>",
+        "lp user {PLAYER} parent remove experienced <server>"
+    ]
+
+[[ranks]]
+    name = "&7[&cVeteran&7]"
+    time = 7
+    timeUnit = "days"
+    money = 16000
+    commands = [
+        "lp user {PLAYER} parent add veteran <server>",
+        "lp user {PLAYER} parent remove master <server>"
+    ]

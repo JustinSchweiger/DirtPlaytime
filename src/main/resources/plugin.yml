@@ -1,0 +1,65 @@
+name: Dirt-Playtime
+version: '${version}'
+main: net.dirtcraft.plugins.dirtplaytime.DirtPlaytime
+api-version: 1.16
+authors: [ DeJustinHD ]
+description: Playtime tracker for DirtCraft 1.16+
+depend: [ LuckPerms, Vault ]
+commands:
+    dirtplaytime:
+        description: Base command for all playtime commands.
+        aliases: [ dpt, playtime ]
+
+permissions:
+    dirtplaytime.base:
+        description: Base Permission for all playtime commands.
+    dirtplaytime.playtime:
+        description: Permission to view your own playtime.
+    dirtplaytime.playtime.other:
+        description: Permission to view other players playtime.
+    dirtplaytime.top:
+        description: Permission to view the playtime leaderboard.
+    dirtplaytime.reload:
+        description: Permission to reload the plugin.
+    dirtplaytime.add:
+        description: Permission to add playtime to a player.
+    dirtplaytime.remove:
+        description: Permission to remove playtime from a player.
+    dirtplaytime.set:
+        description: Permission to set a players playtime.
+    dirtplaytime.common:
+        description: Permissions for normal users.
+        children:
+            dirtplaytime.base: true
+            dirtplaytime.playtime: true
+            dirtplaytime.top: true
+    dirtplaytime.helper:
+        description: Permissions for helpers.
+        children:
+            dirtplaytime.base: true
+            dirtplaytime.playtime: true
+            dirtplaytime.playtime.other: true
+            dirtplaytime.top: true
+    dirtplaytime.moderator:
+        description: Permissions for moderators.
+        children:
+            dirtplaytime.base: true
+            dirtplaytime.playtime: true
+            dirtplaytime.playtime.other: true
+            dirtplaytime.top: true
+            dirtplaytime.add: true
+            dirtplaytime.remove: true
+            dirtplaytime.set: true
+    dirtplaytime.admin:
+        description: Permissions for admins.
+        children:
+            dirtplaytime.base: true
+            dirtplaytime.playtime: true
+            dirtplaytime.playtime.other: true
+            dirtplaytime.top: true
+            dirtplaytime.add: true
+            dirtplaytime.remove: true
+            dirtplaytime.set: true
+            dirtplaytime.reload: true
+
+
