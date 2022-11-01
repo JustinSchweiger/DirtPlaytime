@@ -42,7 +42,7 @@ public class BaseCommand implements CommandExecutor, TabCompleter {
 			case "check":
 				return PlaytimeCommand.run(sender, args);
 			case "top":
-				return TopCommand.run(sender);
+				return TopCommand.run(sender, args);
 			case "add":
 				return AddCommand.run(sender, args);
 			case "remove":
@@ -151,6 +151,8 @@ public class BaseCommand implements CommandExecutor, TabCompleter {
 				arguments.add("minutes");
 				arguments.add("hours");
 			}
+		} else if (args.length == 2 && args[0].equalsIgnoreCase("top") && sender.hasPermission(Permissions.TOP)) {
+			arguments.add("1 - " + PlaytimeManager.getPlayerTracker().size() / Utilities.config.general.leaderboardSize);
 		}
 
 		List<String> tabResults = new ArrayList<>();

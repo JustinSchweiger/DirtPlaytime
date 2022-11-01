@@ -17,12 +17,12 @@
     # Default: true
     announceRankUpsInTitle = true
 
-    # How many players should be shown in the leaderboard
+    # How many players should be shown in the leaderboard on one page
     # Default: 10
     # Max: 15
     leaderboardSize = 10
 
-    # Every how many seconds should the playtime be saved to the database
+    # Every how many seconds should the playtime be synced to the database
     # Default: 30
     saveInterval = 30
 
