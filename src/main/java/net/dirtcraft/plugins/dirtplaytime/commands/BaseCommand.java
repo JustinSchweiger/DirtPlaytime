@@ -1,18 +1,19 @@
 package net.dirtcraft.plugins.dirtplaytime.commands;
 
+import net.dirtcraft.plugins.dirtplaytime.data.Player;
+import net.dirtcraft.plugins.dirtplaytime.data.PlaytimeManager;
 import net.dirtcraft.plugins.dirtplaytime.utils.Permissions;
 import net.dirtcraft.plugins.dirtplaytime.utils.Strings;
-import org.bukkit.Bukkit;
-import org.bukkit.NamespacedKey;
+import net.dirtcraft.plugins.dirtplaytime.utils.Utilities;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
-import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class BaseCommand implements CommandExecutor, TabCompleter {
@@ -40,14 +41,16 @@ public class BaseCommand implements CommandExecutor, TabCompleter {
 		switch (arg) {
 			case "check":
 				return PlaytimeCommand.run(sender, args);
-			case "list":
-				//return ListCommand.run(sender, args);
+			case "top":
+				return TopCommand.run(sender);
 			case "add":
-				//return AddCommand.run(sender, args);
+				return AddCommand.run(sender, args);
 			case "remove":
-				//return RemoveCommand.run(sender, args);
+				return RemoveCommand.run(sender, args);
+			case "set":
+				return SetCommand.run(sender, args);
 			case "reload":
-				//return ReloadCommand.run(sender, args);
+				return ReloadCommand.run(sender);
 		}
 
 		return true;
@@ -115,6 +118,38 @@ public class BaseCommand implements CommandExecutor, TabCompleter {
 
 			if (sender.hasPermission(Permissions.RELOAD)) {
 				arguments.add("reload");
+			}
+		} else if (args.length == 2 && args[0].equalsIgnoreCase("check") && sender.hasPermission(Permissions.PLAYTIME_OTHER)) {
+			Collections.addAll(arguments, PlaytimeManager.getPlayerTracker().values().stream().map(Player::getUsername).toArray(String[]::new));
+		} else if (args.length >= 2 && args[0].equalsIgnoreCase("add") && sender.hasPermission(Permissions.ADD)) {
+			if (args.length == 2) {
+				Collections.addAll(arguments, PlaytimeManager.getPlayerTracker().values().stream().map(Player::getUsername).toArray(String[]::new));
+			} else if (args.length == 3) {
+				arguments.add("<time>");
+			} else {
+				arguments.add("seconds");
+				arguments.add("minutes");
+				arguments.add("hours");
+			}
+		} else if (args.length >= 2 && args[0].equalsIgnoreCase("remove") && sender.hasPermission(Permissions.REMOVE)) {
+			if (args.length == 2) {
+				Collections.addAll(arguments, PlaytimeManager.getPlayerTracker().values().stream().map(Player::getUsername).toArray(String[]::new));
+			} else if (args.length == 3) {
+				arguments.add("<time>");
+			} else {
+				arguments.add("seconds");
+				arguments.add("minutes");
+				arguments.add("hours");
+			}
+		} else if (args.length >= 2 && args[0].equalsIgnoreCase("set") && sender.hasPermission(Permissions.SET)) {
+			if (args.length == 2) {
+				Collections.addAll(arguments, PlaytimeManager.getPlayerTracker().values().stream().map(Player::getUsername).toArray(String[]::new));
+			} else if (args.length == 3) {
+				arguments.add("<time>");
+			} else {
+				arguments.add("seconds");
+				arguments.add("minutes");
+				arguments.add("hours");
 			}
 		}
 

@@ -15,24 +15,35 @@ import java.util.logging.Level;
 public class PlayerListener implements Listener {
 	@EventHandler
 	public void onPlayerJoin(PlayerJoinEvent event) {
-		DatabaseOperations.playerExists(event.getPlayer().getUniqueId(), new PlayerExistCallback() {
+		DatabaseOperations.playerExists(event.getPlayer().getUniqueId(), event.getPlayer().getName(), new PlayerExistCallback() {
 			@Override
 			public void onExist() {
-				Utilities.log(Level.INFO, ChatColor.YELLOW + "Now tracking playtime for " + ChatColor.GOLD + event.getPlayer().getName());
-				DatabaseOperations.updatePlayerMeta(event.getPlayer().getUniqueId(), () -> PlaytimeManager.addOnlinePlayer(event.getPlayer()));
+				if (Utilities.config.general.debug) {
+					Utilities.log(Level.INFO, ChatColor.YELLOW + "Now tracking playtime for " + ChatColor.GOLD + event.getPlayer().getName());
+				}
+				PlaytimeManager.addOnlinePlayer(event.getPlayer().getUniqueId());
+				String username = PlaytimeManager.getPlayerTracker().get(event.getPlayer().getUniqueId()).getUsername();
+				PlaytimeManager.getPlayerTracker().get(event.getPlayer().getUniqueId()).addTimesJoined();
+
+				if (username.equals(event.getPlayer().getName())) return;
+				PlaytimeManager.getPlayerTracker().get(event.getPlayer().getUniqueId()).setUsername(event.getPlayer().getName());
 			}
 
 			@Override
 			public void onNotExist() {
-				Utilities.log(Level.INFO, ChatColor.YELLOW + "Now tracking playtime for new player " + ChatColor.GOLD + event.getPlayer().getName());
-				DatabaseOperations.createPlayer(event.getPlayer().getUniqueId(), () -> PlaytimeManager.addOnlinePlayer(event.getPlayer()));
+				if (Utilities.config.general.debug) {
+					Utilities.log(Level.INFO, ChatColor.YELLOW + "Now tracking playtime for new player " + ChatColor.GOLD + event.getPlayer().getName());
+				}
+				PlaytimeManager.createPlayer(event.getPlayer().getUniqueId(), event.getPlayer().getName());
 			}
 		});
 	}
 
 	@EventHandler
 	public void onPlayerLeave(PlayerQuitEvent event) {
-		PlaytimeManager.removeOnlinePlayer(event.getPlayer());
-		Utilities.log(Level.INFO, ChatColor.YELLOW + "No longer tracking playtime for " + ChatColor.GOLD + event.getPlayer().getName());
+		if (Utilities.config.general.debug) {
+			Utilities.log(Level.INFO, ChatColor.YELLOW + "No longer tracking playtime for " + ChatColor.GOLD + event.getPlayer().getName());
+		}
+		PlaytimeManager.removeOnlinePlayer(event.getPlayer().getUniqueId());
 	}
 }

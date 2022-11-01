@@ -19,11 +19,12 @@
 
     # How many players should be shown in the leaderboard
     # Default: 10
+    # Max: 15
     leaderboardSize = 10
 
-    # Wether staff should be shown in the leaderboard
-    # Default: true
-    showStaffInLeaderboard = true
+    # Every how many seconds should the playtime be saved to the database
+    # Default: 30
+    saveInterval = 30
 
 
 [sounds]
@@ -35,9 +36,21 @@
     # Default: minecraft:ui.toast.challenge_complete
     rankUpSound = "minecraft:ui.toast.challenge_complete"
 
+[[ranks]]
+    name = "starter"
+    prerequisite = ""
+    nextRank = "beginner"
+    displayName = "&7[&fStarter&7]"
+    time = 0
+    timeUnit = "seconds"
+    money = 0
+    commands = []
 
 [[ranks]]
-    name = "&7[&bBeginner&7]"
+    name = "beginner"
+    prerequisite = "starter"
+    nextRank = "amateur"
+    displayName = "&7[&bBeginner&7]"
     time = 30
     timeUnit = "minutes"
     money = 500
@@ -46,7 +59,10 @@
     ]
 
 [[ranks]]
-    name = "&7[&eAmateur&7]"
+    name = "amateur"
+    prerequisite = "beginner"
+    nextRank = "citizen"
+    displayName = "&7[&eAmateur&7]"
     time = 12
     timeUnit = "hours"
     money = 1000
@@ -56,7 +72,10 @@
     ]
 
 [[ranks]]
-    name = "&7[&6Citizen&7]"
+    name = "citizen"
+    prerequisite = "amateur"
+    nextRank = "experienced"
+    displayName = "&7[&6Citizen&7]"
     time = 1
     timeUnit = "days"
     money = 2000
@@ -66,7 +85,10 @@
     ]
 
 [[ranks]]
-    name = "&7[&dExperienced&7]"
+    name = "experienced"
+    prerequisite = "citizen"
+    nextRank = "master"
+    displayName = "&7[&dExperienced&7]"
     time = 3
     timeUnit = "days"
     money = 4000
@@ -76,7 +98,10 @@
     ]
 
 [[ranks]]
-    name = "&7[&2Master&7]"
+    name = "master"
+    prerequisite = "experienced"
+    nextRank = "veteran"
+    displayName = "&7[&2Master&7]"
     time = 5
     timeUnit = "days"
     money = 8000
@@ -86,7 +111,10 @@
     ]
 
 [[ranks]]
-    name = "&7[&cVeteran&7]"
+    name = "veteran"
+    prerequisite = "master"
+    nextRank = ""
+    displayName = "&7[&cVeteran&7]"
     time = 7
     timeUnit = "days"
     money = 16000

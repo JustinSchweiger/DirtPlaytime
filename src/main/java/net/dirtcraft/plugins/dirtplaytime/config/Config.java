@@ -1,9 +1,9 @@
 package net.dirtcraft.plugins.dirtplaytime.config;
 
-import java.util.Set;
+import java.util.List;
 
 public class Config {
 	public General general;
 	public Sound sounds;
-	public Set<Rank> ranks;
+	public List<Rank> ranks;
 }

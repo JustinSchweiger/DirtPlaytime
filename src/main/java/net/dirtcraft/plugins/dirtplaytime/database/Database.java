@@ -30,8 +30,8 @@ public class Database {
 		} catch (SQLException e) {
 			if (Utilities.config.general.debug) {
 				Utilities.log(Level.SEVERE, "Could not create DataSource! Shutting down plugin ...");
-				e.printStackTrace();
 			}
+			e.printStackTrace();
 			Utilities.disablePlugin();
 		}
 	}
@@ -49,7 +49,8 @@ public class Database {
 
 		String[] queries = setup.split(";");
 		for (String query : queries) {
-			try (Connection connection = getConnection(); PreparedStatement statement = connection.prepareStatement(query)) {
+			try (Connection connection = getConnection();
+			     PreparedStatement statement = connection.prepareStatement(query)) {
 				statement.execute();
 			} catch (SQLException e) {
 				if (Utilities.config.general.debug) {

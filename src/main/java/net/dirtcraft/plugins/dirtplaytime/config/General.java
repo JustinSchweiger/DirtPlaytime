@@ -6,5 +6,5 @@ public class General {
 	public boolean announceRankUpsInChat;
 	public boolean announceRankUpsInTitle;
 	public int leaderboardSize;
-	public boolean showStaffInLeaderboard;
+	public int saveInterval;
 }

@@ -69,6 +69,7 @@ public class Utilities {
 	}
 
 	public static void playRankUpSound(CommandSender sender) {
+		if (sender == null) return;
 		if (!(sender instanceof Player)) return;
 
 		Player player = (Player) sender;
@@ -80,5 +81,15 @@ public class Utilities {
 			}
 			player.playSound(player.getLocation(), sound, 1, 1);
 		}
+	}
+
+	public static boolean isInteger(String s) {
+		try {
+			Integer.parseInt(s);
+		} catch (NumberFormatException | NullPointerException e) {
+			return false;
+		}
+
+		return true;
 	}
 }
